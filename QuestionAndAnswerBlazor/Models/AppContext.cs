@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace QuestionAndAnswer.Models;
+namespace QuestionAndAnswerBlazor.Models;
 
 public partial class AppContext : DbContext
 {
@@ -74,6 +72,10 @@ public partial class AppContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.AnswerId).HasColumnName("AnswerID");
             entity.Property(e => e.Comment1).HasColumnName("Comment");
+            entity.Property(e => e.CreateDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Answer).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.AnswerId)
@@ -82,6 +84,11 @@ public partial class AppContext : DbContext
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .HasForeignKey(d => d.ParentId)
                 .HasConstraintName("FK_Comments_CommentID");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Comments_UserID");
         });
 
         modelBuilder.Entity<Question>(entity =>

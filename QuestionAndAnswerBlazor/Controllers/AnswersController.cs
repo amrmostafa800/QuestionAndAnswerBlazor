@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QuestionAndAnswer.DTOs;
-using QuestionAndAnswer.Services;
+using QuestionAndAnswerBlazor.DTOs;
+using QuestionAndAnswerBlazor.Services;
 using System.Security.Claims;
 
-namespace QuestionAndAnswer.Controllers
+namespace QuestionAndAnswerBlazor.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,7 +17,7 @@ namespace QuestionAndAnswer.Controllers
             _AnswerService = answerService;
         }
 
-        private bool _isValidUserAction(int AnswerID,int UserID)
+        private bool _isValidUserAction(int AnswerID, int UserID)
         {
             var UserIdOfAnswer = _AnswerService.GetUserId(AnswerID);
             if (UserIdOfAnswer == UserID)

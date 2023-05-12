@@ -1,6 +1,6 @@
 ﻿using BCryptNet = BCrypt.Net.BCrypt;
 
-namespace QuestionAndAnswer.Helpers
+namespace QuestionAndAnswerBlazor.Helpers
 {
     public class PasswordHelper
     {

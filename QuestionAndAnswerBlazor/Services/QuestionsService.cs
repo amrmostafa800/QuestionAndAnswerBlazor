@@ -1,6 +1,6 @@
-﻿using QuestionAndAnswer.Models;
+﻿using QuestionAndAnswerBlazor.Models;
 
-namespace QuestionAndAnswer.Services
+namespace QuestionAndAnswerBlazor.Services
 {
     public class QuestionsService : IQuestionsService
     {

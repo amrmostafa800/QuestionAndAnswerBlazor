@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuestionAndAnswer.DTOs;
-using QuestionAndAnswer.Helpers;
-using QuestionAndAnswer.Services;
+using QuestionAndAnswerBlazor.DTOs;
+using QuestionAndAnswerBlazor.Helpers;
+using QuestionAndAnswerBlazor.Services;
 
-namespace QuestionAndAnswer.Controllers
+namespace QuestionAndAnswerBlazor.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

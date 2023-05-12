@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace QuestionAndAnswer.Models;
+﻿namespace QuestionAndAnswerBlazor.Models;
 
 public partial class Vote
 {

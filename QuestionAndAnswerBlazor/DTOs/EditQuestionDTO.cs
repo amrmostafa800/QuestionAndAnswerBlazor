@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QuestionAndAnswer.DTOs
+namespace QuestionAndAnswerBlazor.DTOs
 {
     public class EditQuestionDTO
     {

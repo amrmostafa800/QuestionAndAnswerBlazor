@@ -1,8 +1,8 @@
-﻿using QuestionAndAnswer.Helpers;
-using QuestionAndAnswer.Models;
+﻿using QuestionAndAnswerBlazor.Helpers;
+using QuestionAndAnswerBlazor.Models;
 using System.Text.RegularExpressions;
 
-namespace QuestionAndAnswer.Services
+namespace QuestionAndAnswerBlazor.Services
 {
     public class AccountsService : IAccountsService
     {

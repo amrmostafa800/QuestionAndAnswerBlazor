@@ -1,6 +1,6 @@
-﻿using QuestionAndAnswer.Models;
+﻿using QuestionAndAnswerBlazor.Models;
 
-namespace QuestionAndAnswer.Services
+namespace QuestionAndAnswerBlazor.Services
 {
     public class AnswerService : IAnswerService
     {
@@ -52,13 +52,13 @@ namespace QuestionAndAnswer.Services
             return 0; // Invalid AnswerId  
         }
 
-        private void _ReverseVoteType(int AnswerId, bool isUpVote,int UserID)
+        private void _ReverseVoteType(int AnswerId, bool isUpVote, int UserID)
         {
             TryVote(AnswerId, !isUpVote, UserID);
             TryVote(AnswerId, isUpVote, UserID);
         }
 
-        private bool _Vote(int AnswerId,bool isUpVote)
+        private bool _Vote(int AnswerId, bool isUpVote)
         {
             var Answer = _context.Answers.SingleOrDefault(A => A.Id == AnswerId);
             if (Answer != null)
@@ -118,9 +118,9 @@ namespace QuestionAndAnswer.Services
             return false;
         }
 
-        public bool TryVote(int AnswerId, bool isUpVote,int UserID)
+        public bool TryVote(int AnswerId, bool isUpVote, int UserID)
         {
-           var Vote = _context.Votes.SingleOrDefault(V => V.UserId == UserID && V.AnswerId == AnswerId);
+            var Vote = _context.Votes.SingleOrDefault(V => V.UserId == UserID && V.AnswerId == AnswerId);
             if (Vote == null)
             {
                 _Vote(AnswerId, isUpVote);
@@ -134,7 +134,7 @@ namespace QuestionAndAnswer.Services
             else if (Vote != null && Vote.IsUpVote != isUpVote)
             {
                 // Switch From UpVote To DownVote or Reverse
-                _ReverseVoteType(AnswerId, isUpVote,UserID);
+                _ReverseVoteType(AnswerId, isUpVote, UserID);
                 return true;
             }
 

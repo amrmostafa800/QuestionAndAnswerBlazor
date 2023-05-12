@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using QuestionAndAnswer.Services;
+using QuestionAndAnswerBlazor.Services;
 using System.Text;
 
-namespace QuestionAndAnswer
+namespace QuestionAndAnswerBlazor
 {
     public class Program
     {
@@ -26,12 +26,13 @@ namespace QuestionAndAnswer
                 });
 
             var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<QuestionAndAnswer.Models.AppContext>(options =>
+            builder.Services.AddDbContext<Models.AppContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddTransient<IAccountsService, AccountsService>();
             builder.Services.AddTransient<IQuestionsService, QuestionsService>();
             builder.Services.AddTransient<IAnswerService, AnswerService>();
+            builder.Services.AddTransient<CommentsService>();
 
 
             // Add services to the container.

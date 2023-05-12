@@ -1,4 +1,4 @@
-﻿namespace QuestionAndAnswer.Services
+﻿namespace QuestionAndAnswerBlazor.Services
 {
     public interface IAccountsService
     {

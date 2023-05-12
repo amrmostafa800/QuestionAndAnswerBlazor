@@ -1,7 +1,6 @@
-﻿using QuestionAndAnswer.Models;
-using System.ComponentModel.Design;
+﻿using QuestionAndAnswerBlazor.Models;
 
-namespace QuestionAndAnswer.Services
+namespace QuestionAndAnswerBlazor.Services
 {
     public class CommentsService
     {
@@ -12,9 +11,9 @@ namespace QuestionAndAnswer.Services
             _context = context;
         }
 
-        public bool AddNew(string Comment,int AnswerOrParentID, bool isComment = true)
+        public bool AddNew(string Comment, int AnswerOrParentID, int UserID, bool isCommentOnAnswer = true)
         {
-            if (isComment)
+            if (isCommentOnAnswer)
             {
                 Comment comment = new()
                 {
@@ -28,7 +27,8 @@ namespace QuestionAndAnswer.Services
                 Comment comment = new()
                 {
                     ParentId = AnswerOrParentID,
-                    Comment1 = Comment
+                    Comment1 = Comment,
+                    UserId = UserID
                 };
                 _context.Comments.Add(comment);
             }
