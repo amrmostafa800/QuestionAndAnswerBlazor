@@ -19,6 +19,8 @@ public partial class AppContext : DbContext
 
     public virtual DbSet<AnswersView> AnswersViews { get; set; }
 
+    public virtual DbSet<Comment> Comments { get; set; }
+
     public virtual DbSet<Question> Questions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -63,6 +65,23 @@ public partial class AppContext : DbContext
                 .HasColumnName("ID");
             entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
             entity.Property(e => e.UserId).HasColumnName("UserID");
+        });
+
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Comments_ID");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.AnswerId).HasColumnName("AnswerID");
+            entity.Property(e => e.Comment1).HasColumnName("Comment");
+
+            entity.HasOne(d => d.Answer).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.AnswerId)
+                .HasConstraintName("FK_Comments_AnswerID");
+
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
+                .HasForeignKey(d => d.ParentId)
+                .HasConstraintName("FK_Comments_CommentID");
         });
 
         modelBuilder.Entity<Question>(entity =>

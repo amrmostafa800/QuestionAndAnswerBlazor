@@ -19,6 +19,8 @@ public partial class Answer
 
     public int DownVotes { get; set; }
 
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     public virtual Question Question { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;

@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using QuestionAndAnswer.Services;
 using System.Text;
 
-namespace QuestionAndAnswerBlazor
+namespace QuestionAndAnswer
 {
     public class Program
     {
