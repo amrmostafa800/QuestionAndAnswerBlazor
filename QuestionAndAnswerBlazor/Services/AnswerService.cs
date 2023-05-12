@@ -31,7 +31,7 @@ namespace QuestionAndAnswer.Services
             var Answer = _context.Answers.SingleOrDefault(A => A.Id == AnswerID);
             if (Answer != null)
             {
-                _context.Remove(Answer);
+                _context.Answers.Remove(Answer);
                 _context.SaveChanges();
                 return true;
             }

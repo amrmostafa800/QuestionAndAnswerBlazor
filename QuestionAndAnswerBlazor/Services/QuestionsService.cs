@@ -27,9 +27,10 @@ namespace QuestionAndAnswer.Services
         public bool Remove(int QuestionId)
         {
             var Question = _context.Questions.SingleOrDefault(Q => Q.Id == QuestionId);
+
             if (Question != null)
             {
-                _context.Remove(Question);
+                _context.Questions.Remove(Question);
                 _context.SaveChanges();
                 return true;
             }
@@ -42,6 +43,7 @@ namespace QuestionAndAnswer.Services
         public bool Edit(int QuestionId, string NewQuestion)
         {
             var Question = _context.Questions.SingleOrDefault(Q => Q.Id == QuestionId);
+
             if (Question != null)
             {
                 Question.Question1 = NewQuestion;
