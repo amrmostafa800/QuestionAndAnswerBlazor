@@ -12,8 +12,5 @@ namespace QuestionAndAnswerBlazor.DTOs
 
         [Required]
         public bool isCommentOnAnswer { get; set; }
-
-        [Required]
-        public int UserID { get; set; }
     }
 }

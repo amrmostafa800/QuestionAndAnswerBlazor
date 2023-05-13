@@ -9,8 +9,5 @@ namespace QuestionAndAnswerBlazor.DTOs
 
         [Required]
         public int QuestionID { get; set; }
-
-        [Required]
-        public int UserID { get; set; }
     }
 }

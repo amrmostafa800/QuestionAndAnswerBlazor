@@ -1,4 +1,7 @@
-﻿namespace QuestionAndAnswerBlazor.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace QuestionAndAnswerBlazor.Models;
 
 public partial class Question
 {

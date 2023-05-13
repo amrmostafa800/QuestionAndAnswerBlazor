@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuestionAndAnswerBlazor.Models;
 
@@ -79,6 +81,7 @@ public partial class AppContext : DbContext
 
             entity.HasOne(d => d.Answer).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.AnswerId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Comments_AnswerID");
 
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
@@ -87,7 +90,6 @@ public partial class AppContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Comments_UserID");
         });
 
@@ -102,8 +104,7 @@ public partial class AppContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Questions)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Questions_Users");
+                .HasConstraintName("FK_Questions_UserID");
         });
 
         modelBuilder.Entity<User>(entity =>
