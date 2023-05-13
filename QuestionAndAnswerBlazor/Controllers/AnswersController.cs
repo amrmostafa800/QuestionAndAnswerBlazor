@@ -10,9 +10,9 @@ namespace QuestionAndAnswerBlazor.Controllers
     [ApiController]
     public class AnswersController : Controller
     {
-        IAnswerService _AnswerService;
+        AnswerService _AnswerService;
 
-        public AnswersController(IAnswerService answerService)
+        public AnswersController(AnswerService answerService)
         {
             _AnswerService = answerService;
         }
@@ -44,7 +44,7 @@ namespace QuestionAndAnswerBlazor.Controllers
         {
             if (_isValidUserAction(AnswerID, _GetUserID()))
             {
-                var Result = _AnswerService.Remove(_GetUserID());
+                var Result = _AnswerService.Remove(AnswerID);
                 return Ok(Result);
             }
             return BadRequest("Not Allowed");
@@ -53,12 +53,12 @@ namespace QuestionAndAnswerBlazor.Controllers
         [HttpPost("VoteToAnswer"), Authorize]
         public IActionResult VoteToAnswer(VoteDTO vote)
         {
-            if (_isValidUserAction(vote.AnswerID, _GetUserID()))
+            var Answer = _AnswerService.TryVote(vote.AnswerID, vote.isUpVote, _GetUserID());
+            if (Answer)
             {
-                var Answer = _AnswerService.TryVote(vote.AnswerID, vote.isUpVote, _GetUserID());
                 return Ok(Answer);
             }
-            return BadRequest("Not Allowed");
+            return NotFound("Not Allowed");
         }
 
         //maybe Better bycome not EditAble

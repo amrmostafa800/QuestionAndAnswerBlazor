@@ -9,11 +9,11 @@ namespace QuestionAndAnswerBlazor.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        IAccountsService _Account;
+        AccountsService _Account;
         private IConfiguration _configuration;
         JwtHelper _JWT;
 
-        public AccountController(IAccountsService account, IConfiguration configuration)
+        public AccountController(AccountsService account, IConfiguration configuration)
         {
             _Account = account;
             _configuration = configuration;

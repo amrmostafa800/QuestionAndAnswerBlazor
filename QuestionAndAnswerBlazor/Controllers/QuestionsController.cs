@@ -10,9 +10,9 @@ namespace QuestionAndAnswerBlazor.Controllers
     [ApiController]
     public class QuestionsController : Controller
     {
-        IQuestionsService _QuestionsService;
+        QuestionsService _QuestionsService;
 
-        public QuestionsController(IQuestionsService questionsService)
+        public QuestionsController(QuestionsService questionsService)
         {
             _QuestionsService = questionsService;
         }

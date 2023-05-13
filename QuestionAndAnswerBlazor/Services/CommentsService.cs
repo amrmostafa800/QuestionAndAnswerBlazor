@@ -13,12 +13,14 @@ namespace QuestionAndAnswerBlazor.Services
 
         public bool AddNew(string Comment, int AnswerOrParentID, int UserID, bool isCommentOnAnswer = true)
         {
+            // Add Validation For AnswerOrParentID To Sure is Exist
             if (isCommentOnAnswer)
             {
                 Comment comment = new()
                 {
                     AnswerId = AnswerOrParentID,
-                    Comment1 = Comment
+                    Comment1 = Comment,
+                    UserId = UserID
                 };
                 _context.Comments.Add(comment);
             }

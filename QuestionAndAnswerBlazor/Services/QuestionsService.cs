@@ -2,7 +2,7 @@
 
 namespace QuestionAndAnswerBlazor.Services
 {
-    public class QuestionsService : IQuestionsService
+    public class QuestionsService
     {
         private readonly Models.AppContext _context;
 

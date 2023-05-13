@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace QuestionAndAnswerBlazor.Services
 {
-    public class AccountsService : IAccountsService
+    public class AccountsService
     {
         private readonly Models.AppContext _context;
 

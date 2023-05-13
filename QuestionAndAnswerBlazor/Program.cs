@@ -29,9 +29,9 @@ namespace QuestionAndAnswerBlazor
             builder.Services.AddDbContext<Models.AppContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddTransient<IAccountsService, AccountsService>();
-            builder.Services.AddTransient<IQuestionsService, QuestionsService>();
-            builder.Services.AddTransient<IAnswerService, AnswerService>();
+            builder.Services.AddTransient<AccountsService>();
+            builder.Services.AddTransient<QuestionsService>();
+            builder.Services.AddTransient<AnswerService>();
             builder.Services.AddTransient<CommentsService>();
 
 
