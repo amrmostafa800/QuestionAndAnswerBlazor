@@ -11,6 +11,17 @@ namespace QuestionAndAnswerBlazor.Services
             _context = context;
         }
 
+        public int GetUserId(int CommentId)
+        {
+            var Comment = _context.Comments.SingleOrDefault(C => C.Id == CommentId);
+
+            if (Comment != null)
+            {
+                return Comment.UserId;
+            }
+            return 0; // Invalid AnswerId  
+        }
+
         public bool AddNew(string Comment, int AnswerOrParentID, int UserID, bool isCommentOnAnswer = true)
         {
             // Add Validation For AnswerOrParentID To Sure is Exist
@@ -41,6 +52,9 @@ namespace QuestionAndAnswerBlazor.Services
 
         public bool Remove(int CommentId)
         {
+            // Remove All Comments on This Comment
+            _RemoveCommentsOnThisComment(CommentId);
+
             var Comment = _context.Comments.SingleOrDefault(C => C.Id == CommentId);
 
             if (Comment != null)
@@ -53,6 +67,27 @@ namespace QuestionAndAnswerBlazor.Services
             {
                 return false;
             }
+        }
+
+        private bool _RemoveCommentsOnThisComment(int CommentId)
+        {
+            var Comment = _context.Comments.SingleOrDefault(C => C.Id == CommentId);
+
+            if (Comment == null)
+            {
+                return false;
+            }
+
+            var CommentOnThisComment = _context.Comments.Where(C => C.ParentId == Comment.Id);
+
+            if (CommentOnThisComment == null)
+            {
+                return false;
+            }
+
+            _context.Comments.RemoveRange(CommentOnThisComment);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool Edit(int CommentId, string NewComment)

@@ -11,10 +11,12 @@ namespace QuestionAndAnswerBlazor.Controllers
     public class QuestionsController : Controller
     {
         QuestionsService _QuestionsService;
+        AnswerService _AnswerService;
 
-        public QuestionsController(QuestionsService questionsService)
+        public QuestionsController(QuestionsService questionsService, AnswerService answerService)
         {
             _QuestionsService = questionsService;
+            _AnswerService = answerService;
         }
 
         [HttpPost("AddQuestion"), Authorize]
@@ -28,6 +30,9 @@ namespace QuestionAndAnswerBlazor.Controllers
         [HttpPost("DeleteQuestion"), Authorize]
         public IActionResult DeleteQuestion([FromBody] int QuestionID)
         {
+            //Remove Answers On This Question
+            _AnswerService.RemoveManyByQuestionID(QuestionID);
+
             var UserID = int.Parse(User.FindFirstValue("ID")!);
             var UserIdOfQuestion = _QuestionsService.GetUserId(QuestionID);
             if (UserIdOfQuestion == UserID)

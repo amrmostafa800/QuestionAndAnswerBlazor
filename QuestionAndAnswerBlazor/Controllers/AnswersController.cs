@@ -36,7 +36,7 @@ namespace QuestionAndAnswerBlazor.Controllers
         public IActionResult AddAnswer(AddAnswerDTO addAnswer)
         {
             var Result = _AnswerService.AddNew(addAnswer.Answer, addAnswer.QuestionID, _GetUserID());
-            return Ok();
+            return Ok(Result);
         }
 
         [HttpPost("DeleteAnswer"), Authorize]

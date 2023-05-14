@@ -41,6 +41,21 @@ namespace QuestionAndAnswerBlazor.Services
             }
         }
 
+        public bool RemoveManyByQuestionID(int QuestionID)
+        {
+            var Answers = _context.Answers.Where(A => A.QuestionId == QuestionID);
+            if (Answers != null)
+            {
+                _context.Answers.RemoveRange(Answers);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public int GetUserId(int AnswerId)
         {
             var Answer = _context.Answers.SingleOrDefault(A => A.Id == AnswerId);
