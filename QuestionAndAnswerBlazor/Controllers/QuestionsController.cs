@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuestionAndAnswerBlazor.DTOs;
+using QuestionAndAnswerBlazor.Models;
 using QuestionAndAnswerBlazor.Services;
 using System.Security.Claims;
 
@@ -19,6 +20,21 @@ namespace QuestionAndAnswerBlazor.Controllers
             _AnswerService = answerService;
         }
 
+        private int _GetUserID()
+        {
+            return int.Parse(User.FindFirstValue("ID")!);
+        }
+
+        private bool _isValidUserAction(int QuestionID, int UserID)
+        {
+            var UserIdOfQuestion = _QuestionsService.GetUserId(QuestionID);
+            if (UserIdOfQuestion == UserID)
+            {
+                return true;
+            }
+            return false;
+        }
+
         [HttpPost("AddQuestion"), Authorize]
         public IActionResult AddQuestion([FromBody] string Question)
         {
@@ -33,9 +49,8 @@ namespace QuestionAndAnswerBlazor.Controllers
             //Remove Answers On This Question
             _AnswerService.RemoveManyByQuestionID(QuestionID);
 
-            var UserID = int.Parse(User.FindFirstValue("ID")!);
-            var UserIdOfQuestion = _QuestionsService.GetUserId(QuestionID);
-            if (UserIdOfQuestion == UserID)
+            var UserID = _GetUserID();
+            if (_isValidUserAction(QuestionID,UserID))
             {
                 var Result = _QuestionsService.Remove(UserID);
                 return Ok(Result);
@@ -46,9 +61,8 @@ namespace QuestionAndAnswerBlazor.Controllers
         [HttpPost("EditQuestion"), Authorize]
         public IActionResult EditQuestion(EditQuestionDTO editQuestion)
         {
-            var UserID = int.Parse(User.FindFirstValue("ID")!);
-            var UserIdOfQuestion = _QuestionsService.GetUserId(editQuestion.QuestionID);
-            if (UserIdOfQuestion == UserID) // Check If who Try Edit Is Same One Who Create Question
+            var UserID = _GetUserID();
+            if (_isValidUserAction(editQuestion.QuestionID, UserID)) // Check If who Try Edit Is Same One Who Create Question
             {
                 var Result = _QuestionsService.Edit(editQuestion.QuestionID, editQuestion.NewQuestion);
                 return Ok(Result);

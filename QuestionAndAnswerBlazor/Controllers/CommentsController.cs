@@ -36,14 +36,15 @@ namespace QuestionAndAnswerBlazor.Controllers
         [HttpPost("AddComment"), Authorize]
         public IActionResult AddComment(AddCommentDTO addComment)
         {
+            var ID = _GetUserID();
             if (addComment.isCommentOnAnswer)
             {
-                var Result = _CommentsService.AddNew(addComment.Comment, addComment.ParentOrAnswerID, _GetUserID());
+                var Result = _CommentsService.AddNew(addComment.Comment, addComment.ParentOrAnswerID, ID);
                 return Ok(Result);
             }
             else if (addComment.isCommentOnAnswer == false)
             {
-                var Result = _CommentsService.AddNew(addComment.Comment, addComment.ParentOrAnswerID, _GetUserID(), false);
+                var Result = _CommentsService.AddNew(addComment.Comment, addComment.ParentOrAnswerID, ID, false);
                 return Ok(Result);
             }
             return NotFound("Not Allowed");
